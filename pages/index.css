@@ -13,7 +13,8 @@
 
 .header {
   margin: 45px auto 0;
-  width: 880px;
+  max-width: 880px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -32,7 +33,8 @@
 
 .profile {
   margin: 40px auto 0;
-  width: 880px;
+  max-width: 880px;
+  width: 100%;
   display: flex;
   align-items: center;
 }
@@ -44,11 +46,12 @@
 }
 
 .info {
-  width: 415px;
+  max-width: 415px;
   margin: 0 165px 0 30px;
   display: grid;
   grid-template-areas: "title title title button" "subtitle subtitle subtitle .";
   align-items: center;
+  column-gap: 10px;
 }
 
 .info__title {
@@ -71,27 +74,33 @@
   width: 24px;
   height: 24px;
   background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.75s ease;
 }
 
 .button__add-button {
-  width: 150px;
+  max-width: 150px;
+  width: 100%;
+  min-width: 50px;
   height: 50px;
   background-color: rgba(0, 0, 0, 0);
-  border: 2px solid #FFFFFF;
+  border: 2px solid #ffffff;
   border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.75s ease;
 }
 
 .elements {
-  width: 880px;
+  max-width: 880px;
   margin: 45px auto 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   row-gap: 20px;
   column-gap: 17px;
@@ -112,8 +121,9 @@
 
 .card__details {
   grid-row: 2;
+  max-width: 246px;
   display: grid;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 95% 5%;
   align-items: center;
   justify-content: center;
 }
@@ -121,30 +131,68 @@
 .card__title {
   grid-column: 1;
   margin: 0 auto;
+  max-width: 95%;
   color: #000;
   font-size: 24px;
   font-weight: 900;
   line-height: 29px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .card__like-button {
   grid-column: 2;
+  margin: 0 auto;
   width: 21px;
   height: 19px;
-  margin: 0 auto;
+  background-image: url(../images/like-button.svg);
   background-color: rgba(0, 0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
+  transition: opacity 0.75s ease;
+}
+
+.card__like-button_active {
+  background-image: url(../images/like-button_active.svg);
 }
 
 .footer {
-  width: 880px;
+  max-width: 880px;
+  width: 100%;
   margin: 0 auto;
 }
 
 .footer__copyright {
   margin: 67px 0 60px;
   color: #545454;
+}
+@media screen {
+  .info__edit-button:hover {
+    opacity: 0.5;
+  }
+
+  .button__add-button:hover {
+    opacity: 0.5;
+  }
+
+  .card__like-button:hover {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 910px) and (min-width: 300px) {
+  .header {
+    max-width: 99%;
+    margin: 35px auto 0;
+  }
+  .header__logo {
+    margin-left: 27px;
+  }
+
+  .elements {
+    max-width: 90%;
+  }
 }
