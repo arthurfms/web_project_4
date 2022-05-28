@@ -2,14 +2,10 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="author" content="Arthur Santos" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="stylesheet" href="pages/index.css" />
-
-    <title>De Pátria para Pátria</title>
+    <title>Around the U.S.</title>
   </head>
   <body class="page">
     <header class="header">
@@ -23,29 +19,31 @@
     <section class="profile">
       <img src="images/image.png" alt="Profile image" class="profile__avatar" />
       <div class="info">
-        <h1 class="info__title">Jacques Cousteau</h1>
-        <h2 class="info__subtitle">Explorer</h2>
-        <button class="info__edit-button" type="button">
-          <img src="./images/edit-button.svg" alt="edit button icon" />
-        </button>
+        <div class="info__details">
+          <h1 class="info__name">Jacques Cousteau</h1>
+          <button class="info__edit-button" type="button">
+            <img src="./images/edit-button.svg" alt="edit button icon" />
+          </button>
+        </div>
+        <h2 class="info__job">Explorer</h2>
       </div>
       <button class="button__add-button" type="button">
         <img src="./images/button.svg" alt="add button icon" />
       </button>
-      <div class="popup popup_opened">
+      <div class="popup">
+        <button class="popup__close-button">
+          <img src="./images/close-icon.svg" alt="close button icon" />
+        </button>
         <div class="popup__container">
-          <button class="popup__close-button">
-            <img src="./images/close-icon.svg" alt="close button icon" />
-          </button>
-          <h2 class="popup__title">Editar perfil</h2>
           <form class="form">
+            <h2 class="form__title">Editar perfil</h2>
             <input
-              class="form__field-1"
+              class="form__field-name"
               type="text"
               placeholder="Jacques Cousteau"
             />
-            <input class="form__field-2" type="text" placeholder="Explorer" />
-            <button class="form__save-button"></button>
+            <input class="form__field-job" type="text" placeholder="Explorer" />
+            <button class="form__save-button" type="submit">Salvar</button>
           </form>
         </div>
       </div>
@@ -115,5 +113,6 @@
     <footer class="footer">
       <p class="footer__copyright">© 2021 Around The U.S.</p>
     </footer>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
