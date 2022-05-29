@@ -1,0 +1,19 @@
+.form__field-job {
+  margin: 29px 36px 0;
+  height: 27.25px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.form__field-job::placeholder {
+  font-size: 14px;
+  line-height: 16px;
+  color: #000;
+}
+@media (max-width: 770px) and (min-width: 300px) {
+  .form__field-job {
+    margin: 30px 22px 0;
+    height: 26px;
+  }
+}
