@@ -11,10 +11,12 @@
 @media (max-width: 910px) and (min-width: 770px) {
   .elements {
     max-width: 90%;
+    margin: 40px auto 0;
   }
 }
 @media (max-width: 770px) and (min-width: 300px) {
   .elements {
     max-width: 90%;
+    margin: 36px auto 0;
   }
 }

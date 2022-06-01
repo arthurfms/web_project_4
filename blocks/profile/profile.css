@@ -1,5 +1,5 @@
 .profile {
-  margin: 40px auto 0;
+  margin: 36px auto 0;
   max-width: 880px;
   width: 100%;
   display: flex;
@@ -12,6 +12,7 @@
 }
 @media (max-width: 770px) and (min-width: 300px) {
   .profile {
+    margin: 38px auto 0;
     width: 100%;
     flex-direction: column;
     justify-content: center;
