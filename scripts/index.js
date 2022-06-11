@@ -62,6 +62,7 @@ function handleProfileFormSubmit(evt) {
   if (jobInput.value != "") {
     infoJob.textContent = jobInput.value;
   }
+  closePopUp();
   // Insira novos valores usando textContent
   // propriedade do método querySelector()
 }
@@ -90,6 +91,18 @@ function cardGenerate(name, link) {
   newCard.querySelector(".card__image").src = link;
   newCard.querySelector(".card__title").textContent = name;
   cardsElements.prepend(newCard);
+
+  newCard
+    .querySelector(".card__like-button")
+    .addEventListener("click", function (evt) {
+      evt.target.classList.toggle("card__like-button_active");
+    });
+
+  newCard
+    .querySelector(".card__trash-icon")
+    .addEventListener("click", function (evt) {
+      newCard.remove();
+    });
 }
 
 cards.forEach((item, index) => {
