@@ -1,0 +1,15 @@
+.card__trash-icon {
+  position: absolute;
+  width: 18px;
+  height: 19.3px;
+  right: 15px;
+  top: 18px;
+  opacity: 1;
+  transition: opacity 0.75s ease;
+}
+
+@media screen {
+  .card__trash-icon:hover {
+    opacity: 0.6;
+  }
+}

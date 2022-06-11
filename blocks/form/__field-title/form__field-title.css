@@ -1,0 +1,19 @@
+.form__field-title {
+  margin: 54px 36px 0;
+  height: 27.25px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+.form__field-title::placeholder {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #c4c4c4;
+}
+@media (max-width: 770px) and (min-width: 300px) {
+  .form__field-title {
+    margin: 76px 22px 0;
+    height: 26px;
+  }
+}

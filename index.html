@@ -18,7 +18,11 @@
     </header>
     <main>
       <section class="profile">
-        <img src="images/image.png" alt="Profile image" class="profile__avatar" />
+        <img
+          src="images/image.png"
+          alt="Profile image"
+          class="profile__avatar"
+        />
         <div class="info">
           <div class="info__details">
             <h1 class="info__name">Jacques Cousteau</h1>
@@ -38,18 +42,42 @@
           <div class="popup__container">
             <form class="form">
               <h2 class="form__title">Editar perfil</h2>
-              <input
-                class="form__field-name"
-                type="text"
-              />
-              <input class="form__field-job" type="text"/>
+              <input class="form__field-name" type="text" />
+              <input class="form__field-job" type="text" />
               <button class="form__save-button" type="submit">Salvar</button>
+            </form>
+          </div>
+        </div>
+        <div class="popup">
+          <button class="popup__close-button">
+            <img src="./images/close-icon.svg" alt="close button icon" />
+          </button>
+          <div class="popup__container">
+            <form class="form">
+              <h2 class="form__title">Novo Local</h2>
+              <input
+                class="form__field-title"
+                type="text"
+                placeholder="Título"
+              />
+              <input
+                class="form__field-image"
+                type="text"
+                placeholder="Link de imagem"
+              />
+              <button class="form__save-button" type="submit">Criar</button>
             </form>
           </div>
         </div>
       </section>
       <div class="elements">
+        <!--
         <div class="card">
+          <img
+            class="card__trash-icon"
+            src="./images/Trash.svg"
+            alt="trash can icon"
+          />
           <img
             class="card__image"
             src="./images/kirill-pershin-1088404-unsplash.png"
@@ -62,6 +90,11 @@
         </div>
         <div class="card">
           <img
+            class="card__trash-icon"
+            src="./images/Trash.svg"
+            alt="trash can icon"
+          />
+          <img
             class="card__image"
             src="./images/kirill-pershin-1404681-unsplash.png"
             alt="Yosemite Valley river view"
@@ -72,6 +105,11 @@
           </div>
         </div>
         <div class="card">
+          <img
+            class="card__trash-icon"
+            src="./images/Trash.svg"
+            alt="trash can icon"
+          />
           <img
             class="card__image"
             src="./images/kirill-pershin-1556355-unsplash.png"
@@ -84,6 +122,11 @@
         </div>
         <div class="card">
           <img
+            class="card__trash-icon"
+            src="./images/Trash.svg"
+            alt="trash can icon"
+          />
+          <img
             class="card__image"
             src="./images/kirill-pershin-1404681-unsplash-2.png"
             alt="Yosemite Valley river view"
@@ -94,6 +137,11 @@
           </div>
         </div>
         <div class="card">
+          <img
+            class="card__trash-icon"
+            src="./images/Trash.svg"
+            alt="trash can icon"
+          />
           <img
             class="card__image"
             src="./images/kirill-pershin-1556355-unsplash-2.png"
@@ -106,6 +154,11 @@
         </div>
         <div class="card">
           <img
+            class="card__trash-icon"
+            src="./images/Trash.svg"
+            alt="trash can icon"
+          />
+          <img
             class="card__image"
             src="./images/kirill-pershin-1088404-unsplash-2.png"
             alt="Yosemite Valley river view"
@@ -115,11 +168,26 @@
             <button class="card__like-button" type="button"></button>
           </div>
         </div>
-      </div>
+      --></div>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2021 Around The U.S.</p>
     </footer>
+    <template id="card__template">
+      <div class="card">
+        <img
+          class="card__trash-icon"
+          src="./images/Trash.svg"
+          alt="trash can icon"
+        />
+        <img class="card__image" />
+        <div class="card__details">
+          <p class="card__title"></p>
+          <button class="card__like-button" type="button"></button>
+        </div>
+      </div>
+    </template>
+
     <script src="./scripts/index.js"></script>
   </body>
 </html>
