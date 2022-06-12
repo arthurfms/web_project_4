@@ -11,8 +11,7 @@
   border: none;
   transition: opacity 0.75s ease;
 }
-@media screen {
-  .card__like-button:hover {
-    opacity: 0.5;
-  }
+
+.card__like-button:hover {
+  opacity: 0.5;
 }

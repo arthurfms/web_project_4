@@ -8,8 +8,6 @@
   transition: opacity 0.75s ease;
 }
 
-@media screen {
-  .card__trash-icon:hover {
-    opacity: 0.6;
-  }
+.card__trash-icon:hover {
+  opacity: 0.6;
 }

@@ -13,11 +13,10 @@
   text-align: center;
   transition: opacity 0.75s ease;
 }
-@media screen {
-  .form__save-button:hover {
-    opacity: 0.8;
-  }
+.form__save-button:hover {
+  opacity: 0.8;
 }
+
 @media (max-width: 770px) and (min-width: 300px) {
   .form__save-button {
     margin: 46px 22px 0;
