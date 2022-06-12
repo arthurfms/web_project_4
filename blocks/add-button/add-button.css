@@ -11,10 +11,8 @@
   justify-content: center;
   transition: opacity 0.75s ease;
 }
-@media screen {
-  .add-button:hover {
-    opacity: 0.5;
-  }
+.add-button:hover {
+  opacity: 0.5;
 }
 @media (max-width: 770px) and (min-width: 300px) {
   .add-button {
