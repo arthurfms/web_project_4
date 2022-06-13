@@ -90,6 +90,7 @@ function generateCard(name, link) {
   const newCard = cardTemplate.querySelector(".card").cloneNode(true);
 
   newCard.querySelector(".card__image").src = link;
+  newCard.querySelector(".card__image").alt = name;
   newCard.querySelector(".card__title").textContent = name;
   cardsElements.prepend(newCard);
 
