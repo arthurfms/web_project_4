@@ -7,8 +7,10 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
-.image-popup__close-button:hover {
-  cursor: pointer;
+@media (hover: hover) {
+  .image-popup__close-button:hover {
+    cursor: pointer;
+  }
 }
 
 .image-popup__close-button img {

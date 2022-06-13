@@ -9,9 +9,11 @@
   justify-content: center;
   transition: opacity 0.75s ease;
 }
-.info__edit-button:hover {
-  opacity: 0.5;
-  cursor: pointer;
+@media (hover: hover) {
+  .info__edit-button:hover {
+    opacity: 0.5;
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 910px) and (min-width: 770px) {

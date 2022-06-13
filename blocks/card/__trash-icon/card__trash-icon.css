@@ -8,7 +8,9 @@
   transition: opacity 0.75s ease;
 }
 
-.card__trash-icon:hover {
-  opacity: 0.6;
-  cursor: pointer;
+@media (hover: hover) {
+  .card__trash-icon:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
 }

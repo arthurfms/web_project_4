@@ -12,7 +12,9 @@
   transition: opacity 0.75s ease;
 }
 
-.card__like-button:hover {
-  opacity: 0.5;
-  cursor: pointer;
+@media (hover: hover) {
+  .card__like-button:hover {
+    opacity: 0.5;
+    cursor: pointer;
+  }
 }
