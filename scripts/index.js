@@ -62,7 +62,7 @@ function handleProfileFormSubmit(evt) {
   if (jobInput.value != "") {
     infoJob.textContent = jobInput.value;
   }
-  closePopUp();
+  endEditPopup();
   // Insira novos valores usando textContent
   // propriedade do método querySelector()
 }
@@ -72,21 +72,21 @@ editFormElement.addEventListener("click", handleProfileFormSubmit);
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
 
-  let cardTitle = titleInput.value;
-  let cardImage = imageInput.value;
+  const cardTitle = titleInput.value;
+  const cardImage = imageInput.value;
   cards.unshift({ name: cardTitle, link: cardImage });
 
-  cardGenerate(cardTitle, cardImage);
+  generateCard(cardTitle, cardImage);
   titleInput.value = "";
   imageInput.value = "";
-  closePopUp();
+  endAddPopup();
 }
 
 const cardTemplate = document.querySelector("#card__template").content;
 const cardsElements = document.querySelector(".elements");
 const popupImage = document.querySelector(".image-popup");
 
-function cardGenerate(name, link) {
+function generateCard(name, link) {
   const newCard = cardTemplate.querySelector(".card").cloneNode(true);
 
   newCard.querySelector(".card__image").src = link;
@@ -114,7 +114,7 @@ function cardGenerate(name, link) {
 }
 
 cards.forEach((item, index) => {
-  cardGenerate(
+  generateCard(
     cards[cards.length - index - 1].name,
     cards[cards.length - index - 1].link
   );
@@ -122,11 +122,11 @@ cards.forEach((item, index) => {
 
 addFormElement.addEventListener("click", handleAddFormSubmit);
 
-let editButton = document.querySelector(".info__edit-button");
-let addButton = document.querySelector(".add-button");
-let editPopup = document.querySelectorAll(".popup")[0];
-let addPopup = document.querySelectorAll(".popup")[1];
-let popupCloseButton = document.querySelectorAll(".popup__close-button");
+const editButton = document.querySelector(".info__edit-button");
+const addButton = document.querySelector(".add-button");
+const editPopup = document.querySelectorAll(".popup")[0];
+const addPopup = document.querySelectorAll(".popup")[1];
+const popupCloseButton = document.querySelectorAll(".popup__close-button");
 
 function openPopUp(openItem) {
   if (
@@ -146,28 +146,33 @@ function openPopUp(openItem) {
   }
 }
 
-function closePopUp() {
+function endEditPopup() {
   editPopup.classList.remove("popup_opened");
   nameInput.value = infoName.textContent;
   jobInput.value = infoJob.textContent;
+  
+}
+
+function endAddPopup () {
   addPopup.classList.remove("popup_opened");
   titleInput.value = "";
   imageInput.value = "";
 }
 
 editButton.addEventListener("click", function (evt) {
-  let tgt = evt.target;
+  const tgt = evt.target;
   openPopUp(tgt);
 });
 
 addButton.addEventListener("click", function (evt) {
-  let tgt = evt.target;
+  const tgt = evt.target;
   openPopUp(tgt);
 });
 
-popupCloseButton.forEach(function (item) {
-  item.addEventListener("click", closePopUp);
-});
+
+editPopup.querySelector(".popup__close-button").addEventListener("click", endEditPopup);
+addPopup.querySelector(".popup__close-button").addEventListener("click", endAddPopup);
+
 
 popupImage
   .querySelector(".image-popup__close-button")
