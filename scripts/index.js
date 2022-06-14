@@ -125,11 +125,12 @@ addFormElement.addEventListener("click", handleAddFormSubmit);
 
 const editButton = document.querySelector(".info__edit-button");
 const addButton = document.querySelector(".add-button");
+const popups = document.querySelectorAll(".popup");
 const editPopup = document.querySelectorAll(".popup")[0];
 const addPopup = document.querySelectorAll(".popup")[1];
 const popupCloseButton = document.querySelectorAll(".popup__close-button");
 
-function openPopUp(openItem) {
+function openPopup(openItem) {
   if (
     openItem.parentElement.classList[0] == "info__edit-button" ||
     openItem.classList[0] == "info__edit-button"
@@ -160,15 +161,18 @@ function endAddPopup () {
   imageInput.value = "";
 }
 
+
 editButton.addEventListener("click", function (evt) {
   const tgt = evt.target;
-  openPopUp(tgt);
+  openPopup(tgt);
 });
 
 addButton.addEventListener("click", function (evt) {
   const tgt = evt.target;
-  openPopUp(tgt);
+  openPopup(tgt);
 });
+
+
 
 
 editPopup.querySelector(".popup__close-button").addEventListener("click", endEditPopup);
@@ -176,7 +180,7 @@ addPopup.querySelector(".popup__close-button").addEventListener("click", endAddP
 
 
 popupImage
-  .querySelector(".image-popup__close-button")
+  .querySelector(".image-popup__close-image")
   .addEventListener("click", function () {
     popupImage.classList.remove("image-popup_opened");
   });
