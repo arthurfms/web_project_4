@@ -125,7 +125,6 @@ addFormElement.addEventListener("click", handleAddFormSubmit);
 
 const editButton = document.querySelector(".info__edit-button");
 const addButton = document.querySelector(".add-button");
-const popups = document.querySelectorAll(".popup");
 const editPopup = document.querySelectorAll(".popup")[0];
 const addPopup = document.querySelectorAll(".popup")[1];
 const popupCloseButton = document.querySelectorAll(".popup__close-button");
@@ -162,16 +161,12 @@ function endAddPopup () {
 }
 
 
-editButton.addEventListener("click", function (evt) {
-  const tgt = evt.target;
-  openPopup(tgt);
+[editButton, addButton].forEach(function (item) {
+  item.addEventListener("click", function (evt) {
+    const tgt = evt.target;
+    openPopup(tgt);
+  });
 });
-
-addButton.addEventListener("click", function (evt) {
-  const tgt = evt.target;
-  openPopup(tgt);
-});
-
 
 
 
