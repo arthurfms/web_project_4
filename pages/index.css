@@ -34,11 +34,11 @@
 
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__title/form__title.css);
-@import url(../blocks/form/__field-name/form__field-name.css);
-@import url(../blocks/form/__field-job/form__field-job.css);
-@import url(../blocks/form/__field-title/form__field-title.css);
-@import url(../blocks/form/__field-image/form__field-image.css);
-@import url(../blocks/form/__save-button/form__save-button.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__submit/form__submit.css);
+@import url(../blocks/form/__input-error/form__input-error.css);
+@import url(../blocks/form/__input/_type_error/form__input_type_error.css);
+@import url(../blocks/form/__submit/_inactive/form__submit_inactive.css);
 
 @import url(../blocks/elements/elements.css);
 

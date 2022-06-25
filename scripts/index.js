@@ -1,13 +1,13 @@
 // Vamos descobrir o formulário no DOM
-const editFormElement = document.querySelectorAll(".form__save-button")[0];
-const addFormElement = document.querySelectorAll(".form__save-button")[1];
+const editFormElement = document.querySelectorAll(".form__submit")[0];
+const addFormElement = document.querySelectorAll(".form__submit")[1];
 
-let nameInput = document.querySelector(".form__field-name");
-let jobInput = document.querySelector(".form__field-job");
+let nameInput = document.querySelectorAll(".form__input")[0];
+let jobInput = document.querySelectorAll(".form__input")[1];
 const infoName = document.querySelector(".info__name");
 const infoJob = document.querySelector(".info__job");
-const titleInput = document.querySelector(".form__field-title");
-const imageInput = document.querySelector(".form__field-image");
+const titleInput = document.querySelectorAll(".form__input")[2];
+const imageInput = document.querySelectorAll(".form__input")[3];
 
 nameInput.value = infoName.textContent;
 jobInput.value = infoJob.textContent;
@@ -151,15 +151,13 @@ function endEditPopup() {
   editPopup.classList.remove("popup_opened");
   nameInput.value = infoName.textContent;
   jobInput.value = infoJob.textContent;
-  
 }
 
-function endAddPopup () {
+function endAddPopup() {
   addPopup.classList.remove("popup_opened");
   titleInput.value = "";
   imageInput.value = "";
 }
-
 
 [editButton, addButton].forEach(function (item) {
   item.addEventListener("click", function (evt) {
@@ -168,11 +166,12 @@ function endAddPopup () {
   });
 });
 
-
-
-editPopup.querySelector(".popup__close-button").addEventListener("click", endEditPopup);
-addPopup.querySelector(".popup__close-button").addEventListener("click", endAddPopup);
-
+editPopup
+  .querySelector(".popup__close-button")
+  .addEventListener("click", endEditPopup);
+addPopup
+  .querySelector(".popup__close-button")
+  .addEventListener("click", endAddPopup);
 
 popupImage
   .querySelector(".image-popup__close-image")
