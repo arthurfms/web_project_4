@@ -62,7 +62,7 @@ function handleProfileFormSubmit(evt) {
   if (jobInput.value != "") {
     infoJob.textContent = jobInput.value;
   }
-  endEditPopup();
+  handleClosing();
   // Insira novos valores usando textContent
   // propriedade do método querySelector()
 }
@@ -79,7 +79,7 @@ function handleAddFormSubmit(evt) {
   generateCard(cardTitle, cardImage);
   titleInput.value = "";
   imageInput.value = "";
-  endAddPopup();
+  handleClosing();
 }
 
 const cardTemplate = document.querySelector("#card__template").content;
@@ -102,7 +102,7 @@ function generateCard(name, link) {
 
   newCard
     .querySelector(".card__trash-icon")
-    .addEventListener("click", function (evt) {
+    .addEventListener("click", function () {
       newCard.remove();
     });
 
@@ -110,7 +110,7 @@ function generateCard(name, link) {
     document.querySelector(".image-popup__image").src = link;
     document.querySelector(".image-popup__image").alt = name;
     document.querySelector(".image-popup__subtitle").textContent = name;
-    popupImage.classList.add("image-popup_opened");
+    openPopup(popupImage);
   });
 }
 
@@ -127,7 +127,6 @@ const editButton = document.querySelector(".info__edit-button");
 const addButton = document.querySelector(".add-button");
 const editPopup = document.querySelectorAll(".popup")[0];
 const addPopup = document.querySelectorAll(".popup")[1];
-const popupCloseButton = document.querySelectorAll(".popup__close-button");
 
 function openPopup(openItem) {
   if (
@@ -137,26 +136,32 @@ function openPopup(openItem) {
     editPopup.classList.add("popup_opened");
     nameInput.value = infoName.textContent;
     jobInput.value = infoJob.textContent;
+    activePopup = editPopup;
+    document
+      .querySelector(".popup_opened")
+      .querySelector(".popup__close-button")
+      .addEventListener("click", handleClosing);
   } else if (
     openItem.parentElement.classList[0] == "add-button" ||
     openItem.classList[0] == "add-button"
   ) {
     addPopup.classList.add("popup_opened");
-    nameInput.value = infoName.textContent;
-    jobInput.value = infoJob.textContent;
+    activePopup = editPopup;
+    document
+      .querySelector(".popup_opened")
+      .querySelector(".popup__close-button")
+      .addEventListener("click", handleClosing);
+  } else {
+    activePopup = popupImage;
+    popupImage.classList.add("image-popup_opened");
+    document
+      .querySelector(".image-popup_opened")
+      .querySelector(".image-popup__close-button")
+      .addEventListener("click", handleClosing);
   }
-}
 
-function endEditPopup() {
-  editPopup.classList.remove("popup_opened");
-  nameInput.value = infoName.textContent;
-  jobInput.value = infoJob.textContent;
-}
-
-function endAddPopup() {
-  addPopup.classList.remove("popup_opened");
-  titleInput.value = "";
-  imageInput.value = "";
+  document.addEventListener("keyup", escClick);
+  document.addEventListener("click", targetingCloseEvent);
 }
 
 [editButton, addButton].forEach(function (item) {
@@ -166,15 +171,58 @@ function endAddPopup() {
   });
 });
 
-editPopup
-  .querySelector(".popup__close-button")
-  .addEventListener("click", endEditPopup);
-addPopup
-  .querySelector(".popup__close-button")
-  .addEventListener("click", endAddPopup);
+function escClick(evt) {
+  if (evt.key == "Escape") {
+    handleClosing();
+  }
+}
 
-popupImage
-  .querySelector(".image-popup__close-image")
-  .addEventListener("click", function () {
+function handleClosing() {
+  const opened = document.querySelector(".image-popup_opened")
+    ? document.querySelector(".image-popup_opened")
+    : document.querySelector(".popup_opened").querySelector(".form")
+        .firstElementChild.textContent;
+
+  if (opened == "Editar perfil") {
+    document
+      .querySelector(".popup_opened")
+      .querySelector(".popup__close-button")
+      .removeEventListener("click", handleClosing);
+    editPopup.classList.remove("popup_opened");
+    nameInput.value = infoName.textContent;
+    jobInput.value = infoJob.textContent;
+    document.removeEventListener("keyup", escClick);
+    document.removeEventListener("click", targetingCloseEvent);
+  } else if (opened == "Novo Local") {
+    document
+      .querySelector(".popup_opened")
+      .querySelector(".popup__close-button")
+      .removeEventListener("click", handleClosing);
+    addPopup.classList.remove("popup_opened");
+    titleInput.value = "";
+    imageInput.value = "";
+    document.removeEventListener("keyup", escClick);
+    document.removeEventListener("click", targetingCloseEvent);
+  } else {
+    document
+      .querySelector(".image-popup_opened")
+      .querySelector(".image-popup__close-button")
+      .removeEventListener("click", handleClosing);
     popupImage.classList.remove("image-popup_opened");
-  });
+    document.removeEventListener("keyup", escClick);
+    document.removeEventListener("click", targetingCloseEvent);
+  }
+}
+
+function targetingCloseEvent(evt) {
+  const opened = document.querySelector(".image-popup_opened")
+    ? document.querySelector(".image-popup_opened")
+    : document.querySelector(".popup_opened");
+
+  if (
+    evt.target.classList[1] == "popup_opened" ||
+    evt.target.classList[1] == "image-popup_opened"
+  ) {
+    handleClosing();
+  }
+}

@@ -22,7 +22,7 @@
 
 @media (max-width: 770px) and (min-width: 300px) {
   .form__submit {
-    margin: 36px 22px 0;
+    margin: 36px 22px 20px;
     width: 238px;
     height: 46px;
   }
