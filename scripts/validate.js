@@ -42,7 +42,7 @@ const setEventListeners = (formElement) => {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
       checkInputValidity(formElement, inputElement);
-      toggleSubmitButton(inputList, buttonElement);
+      toggleSubmitButton(inputList, submitButton);
     });
   });
 };
