@@ -123,14 +123,18 @@ function handleDeleteButton(card) {
 
 function handleImageOpen(card, name, link) {
   card.querySelector(".card__image").addEventListener("click", function () {
-    const popupImg = document.querySelector(".image-popup__image");
-    const popupSubtitle = document.querySelector(".image-popup__subtitle");
-
-    popupImg.src = link;
-    popupImg.alt = name;
-    popupSubtitle.textContent = name;
+    updateImagePopup(name, link);
     openPopup(popupImage);
   });
+}
+
+function updateImagePopup (name, link) {
+  const popupImg = document.querySelector(".image-popup__image");
+  const popupSubtitle = document.querySelector(".image-popup__subtitle");
+
+  popupImg.src = link;
+  popupImg.alt = name;
+  popupSubtitle.textContent = name;
 }
 
 cards.forEach((item, index) => {
@@ -163,11 +167,11 @@ function openPopup(openItem) {
 }
 
 function identifyPopup(openItem) {
-  const parent = openItem.parentElement.classList[0];
-  const item = openItem.classList[0];
-  if (parent == "info__edit-button" || item == "info__edit-button") {
+  const parentItemClass = openItem.parentElement.classList[0];
+  const itemClass = openItem.classList[0];
+  if (parentItemClass == "info__edit-button" || itemClass == "info__edit-button") {
     return "editPopup";
-  } else if (parent == "add-button" || item == "add-button") {
+  } else if (parentItemClass == "add-button" || itemClass == "add-button") {
     return "addPopup";
   } else {
     return "imagePopup";
@@ -223,9 +227,9 @@ function escClick(evt) {
 function handleClosing() {
   removeCloseListener();
   if (activatedPopup == "editPopup") {
-    handleClosingEdit();
+    closeEditPopup();
   } else if (activatedPopup == "addPopup") {
-    handleClosingAdd();
+    closeAddPopup();
   } else if (activatedPopup == "imagePopup") {
     handleClosingImage();
   }
@@ -248,14 +252,20 @@ function removeCloseListener() {
   document.removeEventListener("mousedown", targetingCloseEvent);
 }
 
-function handleClosingEdit() {
+function closeEditPopup() {
   editPopup.classList.remove("popup_opened");
+  editEditPopup();
+}
+function editEditPopup() {
   nameInput.value = infoName.textContent;
   jobInput.value = infoJob.textContent;
 }
 
-function handleClosingAdd() {
+function closeAddPopup() {
   addPopup.classList.remove("popup_opened");
+  cleanAddPopup ();
+}
+function cleanAddPopup () {
   titleInput.value = "";
   imageInput.value = "";
 }
