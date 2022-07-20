@@ -1,5 +1,3 @@
-import { Card, cards, createCard } from "./cards.js";
-
 const editFormElement = document.querySelectorAll(".form__submit")[0];
 const addFormElement = document.querySelectorAll(".form__submit")[1];
 
