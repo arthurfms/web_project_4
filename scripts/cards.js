@@ -1,4 +1,4 @@
-import { openPopup } from "./utils.js";
+import { openPopup } from "./index.js";
 
 class Card {
   constructor(data, cardSelector) {
@@ -77,6 +77,5 @@ class Card {
     this._element.remove();
   }
 }
-
 
 export { Card };
