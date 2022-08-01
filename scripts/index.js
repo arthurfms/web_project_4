@@ -1,111 +1,77 @@
-import { FormValidator } from "./validate.js"; 
+import { FormValidator } from "./validate.js";
 
-import { Card } from "./cards.js"; 
+import { Card } from "./cards.js";
 
-import "./utils.js"; 
+import "./utils.js";
 
- 
+const formList = Array.from(document.querySelectorAll(".form"));
 
-const formList = Array.from(document.querySelectorAll(".form")); 
+formList.forEach((formElement) => {
+  const formSelectors = {
+    formSelector: ".form",
 
-formList.forEach((formElement) => { 
+    inputSelector: ".form__input",
 
-  const formSelectors = { 
+    submitButtonSelector: ".form__submit",
 
-    formSelector: ".form", 
+    inactiveButtonClass: "form__submit_inactive",
 
-    inputSelector: ".form__input", 
+    inputErrorClass: "form__input_type_error",
 
-    submitButtonSelector: ".form__submit", 
+    errorClass: "form__input_type_error_active",
+  };
 
-    inactiveButtonClass: "form__submit_inactive", 
+  const newForm = new FormValidator(formSelectors, formElement);
 
-    inputErrorClass: "form__input_type_error", 
+  newForm.setEventListeners(formElement);
+});
 
-    errorClass: "form__input_type_error_active", 
+export const cards = [
+  {
+    name: "Vale de Yosemite",
 
-  }; 
+    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
+  },
 
- 
+  {
+    name: "Lago Louise",
 
-  const newForm = new FormValidator(formSelectors, formElement); 
+    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
+  },
 
-  newForm.setEventListeners(formElement); 
+  {
+    name: "Montanhas Carecas",
 
-}); 
+    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
+  },
 
- 
+  {
+    name: "Latemar",
 
-export const cards = [ 
+    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
+  },
 
-    { 
+  {
+    name: "Parque Nacional da Vanoise ",
 
-      name: "Vale de Yosemite", 
+    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
+  },
 
-      link: "https://code.s3.yandex.net/web-code/yosemite.jpg", 
+  {
+    name: "Lago di Braies",
 
-    }, 
+    link: "https://code.s3.yandex.net/web-code/lago.jpg",
+  },
+];
 
-    { 
+cards.forEach((item) => {
+  createCard(item, "#card__template");
+});
 
-      name: "Lago Louise", 
+export function createCard(card, cardSelector) {
+  const cardItem = new Card(card, cardSelector);
 
-      link: "https://code.s3.yandex.net/web-code/lake-louise.jpg", 
+  const newCard = cardItem.generateCard();
 
-    }, 
-
-    { 
-
-      name: "Montanhas Carecas", 
-
-      link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg", 
-
-    }, 
-
-    { 
-
-      name: "Latemar", 
-
-      link: "https://code.s3.yandex.net/web-code/latemar.jpg", 
-
-    }, 
-
-    { 
-
-      name: "Parque Nacional da Vanoise ", 
-
-      link: "https://code.s3.yandex.net/web-code/vanoise.jpg", 
-
-    }, 
-
-    { 
-
-      name: "Lago di Braies", 
-
-      link: "https://code.s3.yandex.net/web-code/lago.jpg", 
-
-    }, 
-
-  ]; 
-
-   
-
-  cards.forEach((item) => { 
-
-    createCard(item, "#card__template"); 
-
-  }); 
-
-   
-
-  export function createCard(card, cardSelector) { 
-
-    const cardItem = new Card(card, cardSelector); 
-
-    const newCard = cardItem.generateCard(); 
-
-   
-
-    document.querySelector(".elements").prepend(newCard); 
-
-  }
+  document.querySelector(".elements").prepend(newCard);
+}

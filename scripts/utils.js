@@ -2,368 +2,236 @@ import { cards, createCard } from "./index.js";
 
 const editFormElement = document.querySelectorAll(".form__submit")[0];
 
-const addFormElement = document.querySelectorAll(".form__submit")[1]; 
+const addFormElement = document.querySelectorAll(".form__submit")[1];
 
- 
+const nameInput = document.querySelectorAll(".form__input")[0];
 
-const nameInput = document.querySelectorAll(".form__input")[0]; 
+const jobInput = document.querySelectorAll(".form__input")[1];
 
-const jobInput = document.querySelectorAll(".form__input")[1]; 
+const infoName = document.querySelector(".info__name");
 
-const infoName = document.querySelector(".info__name"); 
+const infoJob = document.querySelector(".info__job");
 
-const infoJob = document.querySelector(".info__job"); 
+const titleInput = document.querySelectorAll(".form__input")[2];
 
-const titleInput = document.querySelectorAll(".form__input")[2]; 
+const imageInput = document.querySelectorAll(".form__input")[3];
 
-const imageInput = document.querySelectorAll(".form__input")[3]; 
+nameInput.value = infoName.textContent;
 
- 
+jobInput.value = infoJob.textContent;
 
-nameInput.value = infoName.textContent; 
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
 
-jobInput.value = infoJob.textContent; 
+  if (nameInput.value != "") {
+    infoName.textContent = nameInput.value;
+  }
 
- 
+  if (jobInput.value != "") {
+    infoJob.textContent = jobInput.value;
+  }
 
-function handleProfileFormSubmit(evt) { 
+  handleClosing();
+}
 
-  evt.preventDefault(); 
+editFormElement.addEventListener("click", handleProfileFormSubmit);
 
- 
+function handleAddFormSubmit(evt) {
+  evt.preventDefault();
 
-  if (nameInput.value != "") { 
+  const cardTitle = titleInput.value;
 
-    infoName.textContent = nameInput.value; 
+  const cardImage = imageInput.value;
 
-  } 
+  const cardToAdd = { name: cardTitle, link: cardImage };
 
-  if (jobInput.value != "") { 
+  cards.unshift(cardToAdd);
 
-    infoJob.textContent = jobInput.value; 
+  createCard(cardToAdd, "#card__template");
 
-  } 
+  titleInput.value = "";
 
-  handleClosing(); 
+  imageInput.value = "";
 
-} 
+  handleClosing();
+}
 
- 
+const popupImage = document.querySelector(".image-popup");
 
-editFormElement.addEventListener("click", handleProfileFormSubmit); 
+addFormElement.addEventListener("click", handleAddFormSubmit);
 
- 
+const editButton = document.querySelector(".info__edit-button");
 
-function handleAddFormSubmit(evt) { 
+const addButton = document.querySelector(".add-button");
 
-  evt.preventDefault(); 
+const editPopup = document.querySelectorAll(".popup")[0];
 
- 
+const addPopup = document.querySelectorAll(".popup")[1];
 
-  const cardTitle = titleInput.value; 
+let activatedPopup;
 
-  const cardImage = imageInput.value; 
+export function openPopup(openItem) {
+  activatedPopup = identifyPopup(openItem);
 
-  const cardToAdd = { name: cardTitle, link: cardImage }; 
+  if (activatedPopup == "editPopup") {
+    openEditPopup();
+  } else if (activatedPopup == "addPopup") {
+    openAddPopup();
+  } else if (activatedPopup == "imagePopup") {
+    openImagePopup();
+  }
 
-  cards.unshift(cardToAdd); 
+  setOpenningEvents();
+}
 
- 
+function identifyPopup(openItem) {
+  const parentItemClass = openItem.parentElement.classList[0];
 
-  createCard(cardToAdd, "#card__template", "prepend"); 
+  const itemClass = openItem.classList[0];
 
-  titleInput.value = ""; 
+  if (
+    parentItemClass == "info__edit-button" ||
+    itemClass == "info__edit-button"
+  ) {
+    return "editPopup";
+  } else if (parentItemClass == "add-button" || itemClass == "add-button") {
+    return "addPopup";
+  } else {
+    return "imagePopup";
+  }
+}
 
-  imageInput.value = ""; 
+function openEditPopup() {
+  editPopup.classList.add("popup_opened");
 
-  handleClosing(); 
+  nameInput.value = infoName.textContent;
 
-} 
+  jobInput.value = infoJob.textContent;
 
- 
+  document
 
-const popupImage = document.querySelector(".image-popup"); 
+    .querySelector(".popup_opened")
 
- 
+    .querySelector(".popup__close-button")
 
-addFormElement.addEventListener("click", handleAddFormSubmit); 
+    .addEventListener("click", handleClosing);
+}
 
- 
+function openAddPopup() {
+  addPopup.classList.add("popup_opened");
 
-const editButton = document.querySelector(".info__edit-button"); 
+  document
 
-const addButton = document.querySelector(".add-button"); 
+    .querySelector(".popup_opened")
 
-const editPopup = document.querySelectorAll(".popup")[0]; 
+    .querySelector(".popup__close-button")
 
-const addPopup = document.querySelectorAll(".popup")[1]; 
+    .addEventListener("click", handleClosing);
+}
 
-let activatedPopup; 
+function openImagePopup() {
+  popupImage.classList.add("image-popup_opened");
 
- 
+  document
 
-export function openPopup(openItem) { 
+    .querySelector(".image-popup_opened")
 
-  activatedPopup = identifyPopup(openItem); 
+    .querySelector(".image-popup__close-button")
 
- 
+    .addEventListener("click", handleClosing);
+}
 
-  if (activatedPopup == "editPopup") { 
+function setOpenningEvents() {
+  document.addEventListener("keyup", escClick);
 
-    openEditPopup(); 
+  document.addEventListener("mousedown", targetingCloseEvent);
+}
 
-  } else if (activatedPopup == "addPopup") { 
+[editButton, addButton].forEach(setEditAddButton);
 
-    openAddPopup(); 
+function setEditAddButton(button) {
+  button.addEventListener("click", function (evt) {
+    const tgt = evt.target;
 
-  } else if (activatedPopup == "imagePopup") { 
+    openPopup(tgt);
+  });
+}
 
-    openImagePopup(); 
+function escClick(evt) {
+  if (evt.key == "Escape") {
+    handleClosing();
+  }
+}
 
-  } 
+function handleClosing() {
+  removeCloseListener();
 
- 
+  if (activatedPopup == "editPopup") {
+    closeEditPopup();
+  } else if (activatedPopup == "addPopup") {
+    closeAddPopup();
+  } else if (activatedPopup == "imagePopup") {
+    handleClosingImage();
+  }
+}
 
-  setOpenningEvents(); 
+function removeCloseListener() {
+  if (activatedPopup == "editPopup" || activatedPopup == "addPopup") {
+    document
 
-} 
+      .querySelector(".popup_opened")
 
- 
+      .querySelector(".popup__close-button")
 
-function identifyPopup(openItem) { 
+      .removeEventListener("click", handleClosing);
+  } else if (activatedPopup == "imagePopup") {
+    document
 
-  const parentItemClass = openItem.parentElement.classList[0]; 
+      .querySelector(".image-popup_opened")
 
-  const itemClass = openItem.classList[0]; 
+      .querySelector(".image-popup__close-button")
 
-  if ( 
+      .removeEventListener("click", handleClosing);
+  }
 
-    parentItemClass == "info__edit-button" || 
+  document.removeEventListener("keyup", escClick);
 
-    itemClass == "info__edit-button" 
+  document.removeEventListener("mousedown", targetingCloseEvent);
+}
 
-  ) { 
+function closeEditPopup() {
+  editPopup.classList.remove("popup_opened");
 
-    return "editPopup"; 
+  editEditPopup();
+}
 
-  } else if (parentItemClass == "add-button" || itemClass == "add-button") { 
+function editEditPopup() {
+  nameInput.value = infoName.textContent;
 
-    return "addPopup"; 
+  jobInput.value = infoJob.textContent;
+}
 
-  } else { 
+function closeAddPopup() {
+  addPopup.classList.remove("popup_opened");
 
-    return "imagePopup"; 
+  cleanAddPopup();
+}
 
-  } 
+function cleanAddPopup() {
+  titleInput.value = "";
 
-} 
+  imageInput.value = "";
+}
 
- 
+function handleClosingImage() {
+  popupImage.classList.remove("image-popup_opened");
+}
 
-function openEditPopup() { 
-
-  editPopup.classList.add("popup_opened"); 
-
-  nameInput.value = infoName.textContent; 
-
-  jobInput.value = infoJob.textContent; 
-
-  document 
-
-    .querySelector(".popup_opened") 
-
-    .querySelector(".popup__close-button") 
-
-    .addEventListener("click", handleClosing); 
-
-} 
-
- 
-
-function openAddPopup() { 
-
-  addPopup.classList.add("popup_opened"); 
-
-  document 
-
-    .querySelector(".popup_opened") 
-
-    .querySelector(".popup__close-button") 
-
-    .addEventListener("click", handleClosing); 
-
-} 
-
- 
-
-function openImagePopup() { 
-
-  popupImage.classList.add("image-popup_opened"); 
-
-  document 
-
-    .querySelector(".image-popup_opened") 
-
-    .querySelector(".image-popup__close-button") 
-
-    .addEventListener("click", handleClosing); 
-
-} 
-
- 
-
-function setOpenningEvents() { 
-
-  document.addEventListener("keyup", escClick); 
-
-  document.addEventListener("mousedown", targetingCloseEvent); 
-
-} 
-
- 
-
-[editButton, addButton].forEach(setEditAddButton); 
-
- 
-
-function setEditAddButton(button) { 
-
-  button.addEventListener("click", function (evt) { 
-
-    const tgt = evt.target; 
-
-    openPopup(tgt); 
-
-  }); 
-
-} 
-
- 
-
-function escClick(evt) { 
-
-  if (evt.key == "Escape") { 
-
-    handleClosing(); 
-
-  } 
-
-} 
-
- 
-
-function handleClosing() { 
-
-  removeCloseListener(); 
-
-  if (activatedPopup == "editPopup") { 
-
-    closeEditPopup(); 
-
-  } else if (activatedPopup == "addPopup") { 
-
-    closeAddPopup(); 
-
-  } else if (activatedPopup == "imagePopup") { 
-
-    handleClosingImage(); 
-
-  } 
-
-} 
-
- 
-
-function removeCloseListener() { 
-
-  if (activatedPopup == "editPopup" || activatedPopup == "addPopup") { 
-
-    document 
-
-      .querySelector(".popup_opened") 
-
-      .querySelector(".popup__close-button") 
-
-      .removeEventListener("click", handleClosing); 
-
-  } else if (activatedPopup == "imagePopup") { 
-
-    document 
-
-      .querySelector(".image-popup_opened") 
-
-      .querySelector(".image-popup__close-button") 
-
-      .removeEventListener("click", handleClosing); 
-
-  } 
-
- 
-
-  document.removeEventListener("keyup", escClick); 
-
-  document.removeEventListener("mousedown", targetingCloseEvent); 
-
-} 
-
- 
-
-function closeEditPopup() { 
-
-  editPopup.classList.remove("popup_opened"); 
-
-  editEditPopup(); 
-
-} 
-
-function editEditPopup() { 
-
-  nameInput.value = infoName.textContent; 
-
-  jobInput.value = infoJob.textContent; 
-
-} 
-
- 
-
-function closeAddPopup() { 
-
-  addPopup.classList.remove("popup_opened"); 
-
-  cleanAddPopup(); 
-
-} 
-
-function cleanAddPopup() { 
-
-  titleInput.value = ""; 
-
-  imageInput.value = ""; 
-
-} 
-
- 
-
-function handleClosingImage() { 
-
-  popupImage.classList.remove("image-popup_opened"); 
-
-} 
-
- 
-
-function targetingCloseEvent(evt) { 
-
-  if ( 
-
-    evt.target.classList[1] == "popup_opened" || 
-
-    evt.target.classList[1] == "image-popup_opened" 
-
-  ) { 
-
-    handleClosing(); 
-
-  } 
-
-} 
+function targetingCloseEvent(evt) {
+  if (
+    evt.target.classList[1] == "popup_opened" ||
+    evt.target.classList[1] == "image-popup_opened"
+  ) {
+    handleClosing();
+  }
+}
