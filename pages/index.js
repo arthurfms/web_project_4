@@ -1,8 +1,8 @@
-import { FormValidator } from "./validate.js";
+import { FormValidator } from "../scripts/validate.js";
 
-import { Card } from "./cards.js";
+import { Card } from "../components/cards.js";
 
-import "./utils.js";
+import "../utils/utils.js";
 
 const formList = Array.from(document.querySelectorAll(".form"));
 
