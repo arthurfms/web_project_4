@@ -2,8 +2,8 @@ import Popup from "./Popup.js";
 
 class PopupWithForms extends Popup {
   constructor({ selector, sending }) {
-    super._selector;
-    this._form = document.querySelector(this._selector);
+    super(selector);
+    this._form = document.querySelector(`.${this._selector}`).querySelector(".form");
     this._inputsList = this._form.querySelectorAll(".form__input");
     this._inputs = {};
     this._closeButton = this._form.querySelector(".popup__close-button");
@@ -14,17 +14,33 @@ class PopupWithForms extends Popup {
       const inputName = input.id;
       this._inputs.inputName = input.value;
     });
+    return this._inputs;
+  }
+  open() {
+    this._popup.classList.add("popup_opened");
   }
   close() {
-    this._sending();
+    this._sending(this._inputsList);
     this._inputsList.forEach((input) => {
       input.value = "";
     });
-    super.close();
+    console.log("CLOSE");
+    this._popup.classList.remove("popup_opened");
   }
   setEventListeners() {
-    super.setEventListeners();
-    this._closeButton.addEventListeners("click", this.close);
+    document.addEventListener("keyup", (evt) => {
+      this._handleEscClose(evt);
+      console.log(evt.key);
+    });
+    this._popup.addEventListener("click", (evt) => {
+      if (evt.target.classList.contains("popup_opened")) {
+        this.close();
+      }
+    });
+    this._closeButton.addEventListener("click", () => {
+      this.close();
+    })
   }
+
 }
 export { PopupWithForms };

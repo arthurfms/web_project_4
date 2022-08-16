@@ -1,4 +1,4 @@
-import { cards, createCard } from "../pages/index.js";
+
 
 const editFormElement = document.querySelectorAll(".form__submit")[0];
 

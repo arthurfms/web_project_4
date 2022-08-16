@@ -1,4 +1,5 @@
-import { openPopup } from "../utils/utils.js";
+import { ImagePopup } from "../pages/index.js";
+
 class Card {
   constructor(data, cardSelector, { handleCardClick }) {
     this._title = data.name;
@@ -41,26 +42,15 @@ class Card {
         this._handleLike();
       });
     this._element
-
       .querySelector(".card__trash-icon")
-
       .addEventListener("click", () => {
         this._deleteCard();
       });
     this._element
-
       .querySelector(".card__image")
-
       .addEventListener("click", () => {
-        const popupImage = document.querySelector(".image-popup");
-        const popupImg = popupImage.querySelector(".image-popup__image");
-        const popupSubtitle = popupImage.querySelector(
-          ".image-popup__subtitle"
-        );
-        popupImg.src = this._image;
-        popupImg.alt = this._title;
-        popupSubtitle.textContent = this._title;
-        openPopup(popupImage);
+        ImagePopup.open(this._image, this._title);
+        ImagePopup.setEventListeners();
       });
   }
 
