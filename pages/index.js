@@ -54,8 +54,6 @@ addUserButton.addEventListener("click", () => {
           });
         },
       });
-      console.log(newCard);
-      console.log("________");
       cardSection.addItem(newCard.generateCard());
       AddForm.close();
     },
