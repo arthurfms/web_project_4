@@ -1,4 +1,4 @@
-import { ImagePopup } from "../pages/index.js";
+import { ImagePopup } from "../utils/utils.js";
 
 class Card {
   constructor(data, cardSelector, { handleCardClick }) {

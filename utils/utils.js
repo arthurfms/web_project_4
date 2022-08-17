@@ -1,237 +1,67 @@
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { FormValidator } from "../components/FormValidator.js";
 
 
-const editFormElement = document.querySelectorAll(".form__submit")[0];
+ const cards = [
+  {
+    name: "Vale de Yosemite",
+    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
+  },
 
-const addFormElement = document.querySelectorAll(".form__submit")[1];
+  {
+    name: "Lago Louise",
+    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
+  },
 
-const nameInput = document.querySelectorAll(".form__input")[0];
+  {
+    name: "Montanhas Carecas",
+    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
+  },
 
-const jobInput = document.querySelectorAll(".form__input")[1];
+  {
+    name: "Latemar",
+    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
+  },
 
-const infoName = document.querySelector(".info__name");
+  {
+    name: "Parque Nacional da Vanoise ",
+    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
+  },
 
-const infoJob = document.querySelector(".info__job");
+  {
+    name: "Lago di Braies",
+    link: "https://code.s3.yandex.net/web-code/lago.jpg",
+  },
+];
 
-const titleInput = document.querySelectorAll(".form__input")[2];
+ const editUserButton = document.querySelector(".info__edit-button");
+ const addUserButton = document.querySelector(".add-button");
+ const ImagePopup = new PopupWithImage("image-popup");
+ const userName = document.querySelector(".info__name");
+ const userJob = document.querySelector(".info__job");
+ const nameInput = document.querySelector("#name-input");
+ const jobInput =document.querySelector("#job-input");
 
-const imageInput = document.querySelectorAll(".form__input")[3];
+ const formList = Array.from(document.querySelectorAll(".form"));
 
-nameInput.value = infoName.textContent;
+formList.forEach((formElement) => {
+  const formSelectors = {
+    formSelector: ".form",
 
-jobInput.value = infoJob.textContent;
+    inputSelector: ".form__input",
 
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
+    submitButtonSelector: ".form__submit",
 
-  if (nameInput.value != "") {
-    infoName.textContent = nameInput.value;
-  }
+    inactiveButtonClass: "form__submit_inactive",
 
-  if (jobInput.value != "") {
-    infoJob.textContent = jobInput.value;
-  }
+    inputErrorClass: "form__input_type_error",
 
-  handleClosing();
-}
+    errorClass: "form__input_type_error_active",
+  };
 
-editFormElement.addEventListener("click", handleProfileFormSubmit);
+  const newForm = new FormValidator(formSelectors, formElement);
 
-function handleAddFormSubmit(evt) {
-  evt.preventDefault();
+  newForm.setEventListeners(formElement);
+});
 
-  const cardTitle = titleInput.value;
-
-  const cardImage = imageInput.value;
-
-  const cardToAdd = { name: cardTitle, link: cardImage };
-
-  cards.unshift(cardToAdd);
-
-  createCard(cardToAdd, "#card__template");
-
-  titleInput.value = "";
-
-  imageInput.value = "";
-
-  handleClosing();
-}
-
-const popupImage = document.querySelector(".image-popup");
-
-addFormElement.addEventListener("click", handleAddFormSubmit);
-
-const editButton = document.querySelector(".info__edit-button");
-
-const addButton = document.querySelector(".add-button");
-
-const editPopup = document.querySelectorAll(".popup")[0];
-
-const addPopup = document.querySelectorAll(".popup")[1];
-
-let activatedPopup;
-
-export function openPopup(openItem) {
-  activatedPopup = identifyPopup(openItem);
-
-  if (activatedPopup == "editPopup") {
-    openEditPopup();
-  } else if (activatedPopup == "addPopup") {
-    openAddPopup();
-  } else if (activatedPopup == "imagePopup") {
-    openImagePopup();
-  }
-
-  setOpenningEvents();
-}
-
-function identifyPopup(openItem) {
-  const parentItemClass = openItem.parentElement.classList[0];
-
-  const itemClass = openItem.classList[0];
-
-  if (
-    parentItemClass == "info__edit-button" ||
-    itemClass == "info__edit-button"
-  ) {
-    return "editPopup";
-  } else if (parentItemClass == "add-button" || itemClass == "add-button") {
-    return "addPopup";
-  } else {
-    return "imagePopup";
-  }
-}
-
-function openEditPopup() {
-  editPopup.classList.add("popup_opened");
-
-  nameInput.value = infoName.textContent;
-
-  jobInput.value = infoJob.textContent;
-
-  document
-
-    .querySelector(".popup_opened")
-
-    .querySelector(".popup__close-button")
-
-    .addEventListener("click", handleClosing);
-}
-
-function openAddPopup() {
-  addPopup.classList.add("popup_opened");
-
-  document
-
-    .querySelector(".popup_opened")
-
-    .querySelector(".popup__close-button")
-
-    .addEventListener("click", handleClosing);
-}
-
-function openImagePopup() {
-  popupImage.classList.add("image-popup_opened");
-
-  document
-
-    .querySelector(".image-popup_opened")
-
-    .querySelector(".image-popup__close-button")
-
-    .addEventListener("click", handleClosing);
-}
-
-function setOpenningEvents() {
-  document.addEventListener("keyup", escClick);
-
-  document.addEventListener("mousedown", targetingCloseEvent);
-}
-
-[editButton, addButton].forEach(setEditAddButton);
-
-function setEditAddButton(button) {
-  button.addEventListener("click", function (evt) {
-    const tgt = evt.target;
-
-    openPopup(tgt);
-  });
-}
-
-function escClick(evt) {
-  if (evt.key == "Escape") {
-    handleClosing();
-  }
-}
-
-function handleClosing() {
-  removeCloseListener();
-
-  if (activatedPopup == "editPopup") {
-    closeEditPopup();
-  } else if (activatedPopup == "addPopup") {
-    closeAddPopup();
-  } else if (activatedPopup == "imagePopup") {
-    handleClosingImage();
-  }
-}
-
-function removeCloseListener() {
-  if (activatedPopup == "editPopup" || activatedPopup == "addPopup") {
-    document
-
-      .querySelector(".popup_opened")
-
-      .querySelector(".popup__close-button")
-
-      .removeEventListener("click", handleClosing);
-  } else if (activatedPopup == "imagePopup") {
-    document
-
-      .querySelector(".image-popup_opened")
-
-      .querySelector(".image-popup__close-button")
-
-      .removeEventListener("click", handleClosing);
-  }
-
-  document.removeEventListener("keyup", escClick);
-
-  document.removeEventListener("mousedown", targetingCloseEvent);
-}
-
-function closeEditPopup() {
-  editPopup.classList.remove("popup_opened");
-
-  editEditPopup();
-}
-
-function editEditPopup() {
-  nameInput.value = infoName.textContent;
-
-  jobInput.value = infoJob.textContent;
-}
-
-function closeAddPopup() {
-  addPopup.classList.remove("popup_opened");
-
-  cleanAddPopup();
-}
-
-function cleanAddPopup() {
-  titleInput.value = "";
-
-  imageInput.value = "";
-}
-
-function handleClosingImage() {
-  popupImage.classList.remove("image-popup_opened");
-}
-
-function targetingCloseEvent(evt) {
-  if (
-    evt.target.classList[1] == "popup_opened" ||
-    evt.target.classList[1] == "image-popup_opened"
-  ) {
-    handleClosing();
-  }
-}
+ export {cards, editUserButton, addUserButton, ImagePopup, userName, userJob, nameInput, jobInput, formList};

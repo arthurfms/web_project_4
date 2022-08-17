@@ -1,51 +1,7 @@
 import { PopupWithForms } from "../components/PopupWithForms.js";
-import { PopupWithImage } from "../components/PopupWithImage.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
-import { FormValidator } from "../components/FormValidator.js";
-
-export const cards = [
-  {
-    name: "Vale de Yosemite",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-
-  {
-    name: "Lago Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-
-  {
-    name: "Montanhas Carecas",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-
-  {
-    name: "Parque Nacional da Vanoise ",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
-
-const editUserButton = document.querySelector(".info__edit-button");
-const addUserButton = document.querySelector(".add-button");
-export const ImagePopup = new PopupWithImage("image-popup");
-
-const AddForm = new PopupWithForms({
-  selector: "popup_card",
-  sending: (intemsList) => {
-    console.log("DONE");
-  },
-});
+import {cards, editUserButton, addUserButton, ImagePopup, userName, userJob, nameInput, jobInput, formList} from "../utils/utils.js";
 
 const cardSection = new Section(
   {
@@ -66,41 +22,44 @@ const cardSection = new Section(
 
 cardSection.renderItems();
 
-const formList = Array.from(document.querySelectorAll(".form"));
 
-formList.forEach((formElement) => {
-  const formSelectors = {
-    formSelector: ".form",
-
-    inputSelector: ".form__input",
-
-    submitButtonSelector: ".form__submit",
-
-    inactiveButtonClass: "form__submit_inactive",
-
-    inputErrorClass: "form__input_type_error",
-
-    errorClass: "form__input_type_error_active",
-  };
-
-  const newForm = new FormValidator(formSelectors, formElement);
-
-  newForm.setEventListeners(formElement);
-});
 
 editUserButton.addEventListener("click", () => {
   const UserForm = new PopupWithForms({
     selector: "popup_user",
-    sending: (list) => {
-      list.forEach((input) => {
-        input.value = "";
-      });
+    sending: () => {
+      const inputs = UserForm._getInputValues();
+      userName.textContent = inputs["name-input"];
+      userJob.textContent = inputs["job-input"];
+      UserForm.close();
+      nameInput.value = inputs["name-input"];
+      jobInput.value = inputs["job-input"];
     },
   });
+  const formVal = "";
   UserForm.open();
   UserForm.setEventListeners();
 });
 
 addUserButton.addEventListener("click", () => {
+  const AddForm = new PopupWithForms({
+    selector: "popup_card",
+    sending: () => {
+      const inputs = AddForm._getInputValues();
+      cards.push({name: inputs["title-input"], link: inputs["image-input"]});
+      const newCard = new Card(cards[cards.length-1], "#card__template", {
+        handleCardClick: () => {
+          newCard.addEventListener("click", () => {
+            ImagePopup.open(newCard._link, newCard._title);
+          });
+        },
+      });
+      console.log(newCard);
+      console.log("________");
+      cardSection.addItem(newCard.generateCard());
+      AddForm.close();
+    },
+  });
   AddForm.open();
+  AddForm.setEventListeners();
 });
