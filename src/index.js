@@ -4,6 +4,7 @@ import { Card } from "./components/Card.js";
 import { Section } from "./components/Section.js";
 import {cards, editUserButton, addUserButton, ImagePopup, userName, userJob, nameInput, jobInput, formList, userPopup, cardPopup, formSelectors} from "./utils/utils.js";
 
+
 const cardSection = new Section(
   {
     items: cards,
@@ -43,9 +44,7 @@ editUserButton.addEventListener("click", () => {
   UserForm.setEventListeners();
 });
 
-addUserButton.addEventListener("click", setAddButton);
-
-function setAddButton() {
+addUserButton.addEventListener("click", () => {
   const AddForm = new PopupWithForms({
     selector: "popup_card",
     sending: () => {
@@ -58,10 +57,11 @@ function setAddButton() {
           });
         },
       });
-      cardSection.addItem(newCard.generateCard());
+      const cardToAdd = newCard.generateCard();
+      cardSection.addItem(cardToAdd);
       AddForm.close();
     },
   });
   AddForm.open();
   AddForm.setEventListeners();
-}
+});

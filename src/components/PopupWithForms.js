@@ -7,7 +7,6 @@ class PopupWithForms extends Popup {
   constructor({ selector, sending }) {
     super(selector);
     this._form = document.querySelector(`.${this._selector}`).querySelector(".form");
-    this._inputsList = this._form.querySelectorAll(".form__input");
     this._inputs = {};
     this._closeButton = document.querySelector(`.${this._selector}`).querySelector(".popup__close-button");
     this._sendButton = this._form.querySelector(".form__submit");
@@ -21,15 +20,13 @@ class PopupWithForms extends Popup {
     return this._inputs;
   }
   open() {
+    this._inputsList = this._form.querySelectorAll(".form__input");
     const newForm = new FormValidator(formSelectors, this._form);
     newForm.setEventListeners();
     this._popup.classList.add("popup_opened");
   }
   close() {
     this._popup.classList.remove("popup_opened");
-    this._inputsList.forEach((item) => {
-      item.value = "";
-    });
   }
   setEventListeners() {
     document.addEventListener("keyup", (evt) => {
