@@ -1,6 +1,8 @@
 import { PopupWithImage } from "../components/PopupWithImage.js";
+import { FormValidator } from "../components/FormValidator.js";
 
-const cards = [
+
+ const cards = [
   {
     name: "Vale de Yosemite",
     link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
@@ -32,16 +34,16 @@ const cards = [
   },
 ];
 
-const editButton = document.querySelector(".info__edit-button");
-const addButton = document.querySelector(".add-button");
-const ImagePopup = new PopupWithImage("image-popup");
-const userName = document.querySelector(".info__name");
-const userJob = document.querySelector(".info__job");
-const nameInput = document.querySelector("#name-input");
-const jobInput = document.querySelector("#job-input");
-const userPopup = document.querySelector(".popup_user");
-const cardPopup = document.querySelector(".popup_card");
-const formSelectors = {
+ const editUserButton = document.querySelector(".info__edit-button");
+ const addUserButton = document.querySelector(".add-button");
+ const ImagePopup = new PopupWithImage("image-popup");
+ const userName = document.querySelector(".info__name");
+ const userJob = document.querySelector(".info__job");
+ const nameInput = document.querySelector("#name-input");
+ const jobInput =document.querySelector("#job-input");
+ const userPopup = document.querySelector(".popup_user");
+ const cardPopup = document.querySelector(".popup_card");
+ const formSelectors = {
   formSelector: ".form",
 
   inputSelector: ".form__input",
@@ -55,16 +57,5 @@ const formSelectors = {
   errorClass: "form__input_type_error_active",
 };
 
-export {
-  cards,
-  editButton,
-  addButton,
-  ImagePopup,
-  userName,
-  userJob,
-  nameInput,
-  jobInput,
-  userPopup,
-  cardPopup,
-  formSelectors,
-};
+
+ export {cards, editUserButton, addUserButton, ImagePopup, userName, userJob, nameInput, jobInput, userPopup, cardPopup, formSelectors};
