@@ -2,21 +2,33 @@ import "./pages/index.css";
 import { PopupWithForms } from "./components/PopupWithForms.js";
 import { Card } from "./components/Card.js";
 import { Section } from "./components/Section.js";
-import {cards, editUserButton, addUserButton, ImagePopup, userName, userJob, nameInput, jobInput, formList, userPopup, cardPopup, formSelectors} from "./utils/utils.js";
-
+import {
+  cards,
+  editButton,
+  addButton,
+  ImagePopup,
+  userName,
+  userJob,
+  nameInput,
+  jobInput,
+  formList,
+  userPopup,
+  cardPopup,
+  formSelectors,
+} from "./utils/utils.js";
 
 const cardSection = new Section(
   {
     items: cards,
     renderer: (item) => {
-        const card = new Card(item, "#card__template", {
-          handleCardClick: () => {
-            card.addEventListener("click", () => {
-              ImagePopup.open(card._link, card._title);
-            });
-          },
-        });
-        cardSection.addItem(card.generateCard());
+      const card = new Card(item, "#card__template", {
+        handleCardClick: () => {
+          card.addEventListener("click", () => {
+            ImagePopup.open(card._link, card._title);
+          });
+        },
+      });
+      cardSection.addItem(card.generateCard());
     },
   },
   ".elements"
@@ -24,9 +36,7 @@ const cardSection = new Section(
 
 cardSection.renderItems();
 
-
-
-editUserButton.addEventListener("click", () => {
+editButton.addEventListener("click", () => {
   const UserForm = new PopupWithForms({
     selector: "popup_user",
     sending: () => {
@@ -39,18 +49,17 @@ editUserButton.addEventListener("click", () => {
     },
   });
 
-  
   UserForm.open();
   UserForm.setEventListeners();
 });
 
-addUserButton.addEventListener("click", () => {
+addButton.addEventListener("click", () => {
   const AddForm = new PopupWithForms({
     selector: "popup_card",
     sending: () => {
       const inputs = AddForm._getInputValues();
-      cards.push({name: inputs["title-input"], link: inputs["image-input"]});
-      const newCard = new Card(cards[cards.length-1], "#card__template", {
+      cards.push({ name: inputs["title-input"], link: inputs["image-input"] });
+      const newCard = new Card(cards[cards.length - 1], "#card__template", {
         handleCardClick: () => {
           newCard.addEventListener("click", () => {
             ImagePopup.open(newCard._link, newCard._title);
