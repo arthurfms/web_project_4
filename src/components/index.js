@@ -1,9 +1,7 @@
-import "./pages/index.css";
-import { PopupWithForms } from "./components/PopupWithForms.js";
-import { Card } from "./components/Card.js";
-import { Section } from "./components/Section.js";
-import {cards, editUserButton, addUserButton, ImagePopup, userName, userJob, nameInput, jobInput, formList, userPopup, cardPopup, formSelectors} from "./utils/utils.js";
-
+import { PopupWithForms } from "../components/PopupWithForms.js";
+import { Card } from "../components/Card.js";
+import { Section } from "../components/Section.js";
+import {cards, editUserButton, addUserButton, ImagePopup, userName, userJob, nameInput, jobInput, formList} from "../utils/utils.js";
 
 const cardSection = new Section(
   {
@@ -38,8 +36,7 @@ editUserButton.addEventListener("click", () => {
       jobInput.value = inputs["job-input"];
     },
   });
-
-  
+  const formVal = "";
   UserForm.open();
   UserForm.setEventListeners();
 });
@@ -57,8 +54,7 @@ addUserButton.addEventListener("click", () => {
           });
         },
       });
-      const cardToAdd = newCard.generateCard();
-      cardSection.addItem(cardToAdd);
+      cardSection.addItem(newCard.generateCard());
       AddForm.close();
     },
   });
