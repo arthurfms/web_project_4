@@ -1,4 +1,4 @@
-import { ImagePopup } from "../utils/utils.js";
+import { imagePopup } from "../utils/utils.js";
 
 class Card {
   constructor(data, cardSelector, { handleCardClick }) {
@@ -49,8 +49,8 @@ class Card {
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        ImagePopup.open(this._image, this._title);
-        ImagePopup.setEventListeners();
+        imagePopup.open(this._image, this._title);
+        imagePopup.setEventListeners();
       });
   }
 
