@@ -12,6 +12,7 @@ import {
   nameInput,
   jobInput,
 } from "../utils/utils.js";
+import { UserInfo } from "../components/UserInfo.js";
 
 const cardSection = new Section(
   {
@@ -31,20 +32,25 @@ const cardSection = new Section(
 );
 
 cardSection.renderItems();
+let userData = { name: userName.textContent, job: userJob.textContent };
+const pageUser = new UserInfo(userData);
 
 editUserButton.addEventListener("click", () => {
   const UserForm = new PopupWithForms({
     selector: "popup_user",
     sending: () => {
       const inputs = UserForm._getInputValues();
-      userName.textContent = inputs["name-input"];
-      userJob.textContent = inputs["job-input"];
+      userData = {
+        name: inputs["name-input"],
+        job: inputs["job-input"],
+      };
+      pageUser.updateUserData(userData);
       UserForm.close();
-      nameInput.value = inputs["name-input"];
-      jobInput.value = inputs["job-input"];
     },
   });
 
+  nameInput.value = userName.textContent;
+  jobInput.value = userJob.textContent;
   UserForm.open();
   UserForm.setEventListeners();
 });

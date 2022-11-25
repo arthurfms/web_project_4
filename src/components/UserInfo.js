@@ -1,17 +1,25 @@
 class UserInfo {
-  constructor({ user }) {
+  constructor(user) {
     this._userName = user.name;
     this._userJob = user.job;
+  }
+
+  updateUserData(newData) {
+    this._userName = newData.name;
+    this._userJob = newData.job;
+    this._setUserInfo();
   }
   getUserInfo() {
     return { name: this._userName, job: this._userJob };
   }
-  setUserInfo() {
+  _setUserInfo() {
+    const userData = this.getUserInfo();
     const namePlace = document.querySelector(".info__name");
     const jobPlace = document.querySelector(".info__job");
 
-    namePlace.textContent = this._userName;
-    jobPlace.textContent = this._userJob;
+    namePlace.textContent = userData.name;
+    jobPlace.textContent = userData.job;
+    console.log("user set");
   }
 }
 export { UserInfo };
