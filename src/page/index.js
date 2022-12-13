@@ -2,6 +2,7 @@ import "./index.css";
 import { PopupWithForms } from "../components/PopupWithForms.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
+import { Api } from "../components/Api.js";
 import {
   cards,
   editUserButton,
@@ -76,3 +77,37 @@ addButton.addEventListener("click", () => {
   AddForm.open();
   AddForm.setEventListeners();
 });
+
+/* temp 
+fetch("https://around.nomoreparties.co/v1/web_ptbr_cohort_01/cards", {
+  headers: {
+    authorization: "4ffa3b89-8ef6-47e0-b012-e4475ed39e9b",
+  },
+})
+  .then((res) => res.json())
+  .then((result) => {
+    console.log(result);
+  });
+fetch("https://around.nomoreparties.co/v1/web_ptbr_cohort_01/users/me", {
+  headers: {
+    authorization: "4ffa3b89-8ef6-47e0-b012-e4475ed39e9b",
+  },
+})
+  .then((res) => res.json())
+  .then((result) => {
+    console.log(result);
+  });
+console.log(
+  `-----------------------------------------------------
+  -----------------------------------------------------`
+); */
+let testApi = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/web_ptbr_cohort_01/cards",
+  body: { headers: { authorization: "4ffa3b89-8ef6-47e0-b012-e4475ed39e9b" } },
+});
+testApi.getInitialCards();
+let userApi = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/web_ptbr_cohort_01/users/me",
+  body: { headers: { authorization: "4ffa3b89-8ef6-47e0-b012-e4475ed39e9b" } },
+});
+userApi.getUser();
